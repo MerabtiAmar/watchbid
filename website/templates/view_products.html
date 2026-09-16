@@ -1,0 +1,58 @@
+{% extends "base.html" %} 
+{% block title %}Mes produits{% endblock %} 
+{% block content %}
+
+<div class="container">
+    <div class="row text-center py-5">
+        <div class="col-lg-6 m-auto">
+            <h1 class="h1"><strong>Mes<span class="text-success"> Produits</span></strong></h1>
+        </div>                
+    </div>
+
+    {% if produits %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Marque</th>
+                    <th>Catégorie</th>
+                    <th>Année de production</th>
+                    <th>Prix (€)</th>
+                    <th>Date de début</th>
+                    <th>Date de fin</th>
+                    <th>Actions</th>
+                    <th><a href="/sellwatch" class="btn ajouter btn-success"><i class="fas fa-plus"></i></a></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for produit in produits %}
+                    <tr>
+                        <td>{{ produit.id_watch }}</td>
+                        <td><a href="/shop-single?id={{ produit.id_watch }}">{{ produit.nom }}</a></td>
+                        <td>{{ produit.marque }}</td>
+                        <td>{{ produit.categorie }}</td>
+                        <td>{{ produit.annee }}</td>
+                        <td>{{ produit.prix }} €</td>
+                        <td>{{ produit.dateStart }}</td>
+                        <td>{{ produit.dateEnd }}</td>
+                        <td>
+                            <form action="/delete_product" method="POST" id="delete-form-{{ produit.id_watch }}">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="id_product" value="{{ produit.id_watch }}">
+                                <button class="btn supprimer btn-danger text-white" onclick="return confirm('Are you sure you want to delete your profile?');" {% if produit.bids %}disabled{% endif %}><i class="fas fa-trash-alt"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-info" role="alert">
+            Aucun produit disponible pour le moment.
+        </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

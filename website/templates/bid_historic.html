@@ -1,0 +1,79 @@
+{% extends "base.html" %} 
+{% block title %}Offres soumises{% endblock %} 
+{% block content %}
+
+<section class="bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="row text-center py-5">
+                    <div class="col-lg-6 m-auto">
+                        <h1 class="h1"><strong>Offres<span class="text-success"> Soumises</span></strong></h1>
+                    </div>                
+                </div>
+                {% if offres_details %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nom du Produit</th>
+                            <th>Offre Soumise</th>
+                            <th>Offre Actuelle</th>
+                            <th>Temps restants</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for offre_detail in offres_details %}
+                            <tr>
+                                <td>{{ offre_detail['nom_produit'] }}</td>
+                                <td>{{ offre_detail['offre'] }} €</td>
+                                <td>{{ offre_detail['offre_max_autres_utilisateurs'] }} €</td>
+                                <td><span id="countdown_{{ offre_detail['id_produit'] }}"></span></td>
+                                <td>
+                                    <a href="/shop-single?id={{ offre_detail['id_produit'] }}" class="btn btn-primary"><i class="fas fa-gavel"></i> Nouvelle Offre</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <div class="alert alert-info" role="alert">
+                    Vous n'avez fait aucune offre pour l'instant.
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% block scripts %}
+
+<script>
+    function updateCountdown(endDate, elementId) {
+        var countdownInterval = setInterval(function() {
+            var now = new Date().getTime();
+            var distance = endDate - now;
+            if (distance <= 0) {
+                clearInterval(countdownInterval);
+                document.getElementById(elementId).innerHTML = "EXPIRÉ";
+                return;
+            }
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            document.getElementById(elementId).innerHTML = days + 'j ' + hours + 'h ' + minutes + 'm ' + seconds + 's ';
+        }, 1000);
+    }
+    
+    {% for offre_detail in offres_details %}
+    var endDate_{{ offre_detail['id_produit'] }} = new Date('{{ offre_detail['date_fin'] }}');
+    updateCountdown(endDate_{{ offre_detail['id_produit'] }}, 'countdown_{{ offre_detail['id_produit'] }}');
+    {% endfor %}
+
+</script>
+
+
+{% endblock %}
+
+{% endblock %}

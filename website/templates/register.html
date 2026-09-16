@@ -1,0 +1,75 @@
+{% extends "base.html" %} 
+{% block title %}Inscription{% endblock %} 
+{% block content %}
+<section class="bg-success py-3 py-md-5 py-xl-8">
+    <div class="container">
+      <div class="row gy-4 align-items-center">
+        <div class="col-12 col-md-6 col-xl-7">
+          <div class="d-flex justify-content-center text-bg-primary">
+            <div class="col-12 col-xl-9">
+              <div class="col">
+                <img src="../assets/img/Placeholder-bro.svg" alt="Login">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-xl-5">
+          <div class="card border-0 rounded-4">
+            <div class="card-body p-3 p-md-4 p-xl-5">
+              <div class="row">
+                <div class="col-12">
+                  <div class="mb-4">
+                    <h3 class="text-center">Inscription</h3>
+                  </div>
+                </div>
+              </div>
+              <form method="POST">
+                <div class="row gy-3 overflow-hidden">
+                  <div class="col-12">
+                    <div class="form-floating mb-3">
+                       <input type="text" class="form-control" name="full_name" id="full_name" placeholder="Nom Complet" required>
+                        <label for="text" class="form-label">Nom complet <span class="text-danger"> *</span></label>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-floating mb-3">
+                      <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" required>
+                      <label for="email" class="form-label">Email <span class="text-danger"> *</span></label>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-floating mb-3">
+                      <input type="tel" class="form-control" name="tel" id="tel" placeholder="Numéro de téléphone" required>
+                      <label for="tel" class="form-label">Numéro de téléphone <span class="text-danger"> *</span></label>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-floating mb-3">
+                      <input type="password" class="form-control" name="password" id="password" value="" placeholder="Password" required>
+                      <label for="password" class="form-label">Mot de passe <span class="text-danger"> *</span></label>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-floating mb-3">
+                      <input type="password" class="form-control" name="cpassword" id="cpassword" value="" placeholder="Confirmer le mot de passe" required>
+                      <label for="password" class="form-label">Confirmer le mot de passe <span class="text-danger"> *</span></label>
+                    </div>
+                    <p>Vous avez déjà un compte?<a href="/login" class="text-decoration-none text-success"><strong> Connectez-vous</strong></a></p>
+                  </div>
+                  <div class="col-12">
+                    <div class="d-grid">
+                      <button class="btn btn-success btn-lg" type="submit">S'inscrire</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <div class="row">
+            </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

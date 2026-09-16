@@ -1,0 +1,118 @@
+{% extends "base.html" %} 
+{% block title %}Enchères{% endblock %} 
+{% block content %}
+
+    <!-- Start Content -->
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-3">
+            <div class="row">
+                
+                <h1 class="h2 pb-4 text-center"><strong>Catégories</strong></h1>
+                <ul class="list-unstyled">
+                    {% for category in categories %}
+                        <li><a class="text-decoration-none text-dark" href="/shop?categorie={{ category[0] }}"><strong>{{ category[0] }}</strong></a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <br>
+            <div class="row">
+                <h1 class="h2 pb-4 text-center"><strong>Marques</strong></h1>
+                <ul class="list-unstyled">
+                    {% for marque in marques %}
+                        <li><a class="text-decoration-none text-dark" href="/shop?marque={{ marque[0] }}"><strong>{{ marque[0] }}</strong></a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+            
+            
+            <div class="col-lg-9">
+                <div class="row">
+                    <div class="col-md-5"></div>
+                    <div class="col-md-5 pb-4">
+                        <form action="{{ url_for('views.shop') }}" method="GET" class="d-flex justify-content-between">
+                            <select id="filter-sort" class="form-control" name="sort">
+                                <option value="all">All</option>
+                                <option value="populaires">Populaires en ce moment</option>
+                                <option value="terminees">Bientôt terminées</option>
+                                <option value="prix-haut">Prix haut</option>
+                                <option value="prix-bas">Prix bas</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary" style="margin-left:20px;">Filtrer</button>
+                        </form>                            
+                    </div>
+                </div>
+                
+                <div class="row">
+                    {% for product in produits %}
+                        <div class="col-md-4">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="card-img-top img-fluid" src="../assets/img/{{ product.img1 }}" style="height: 300px; object-fit: cover;">
+                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                        <ul class="list-unstyled">
+                                            <li><a class="btn btn-success text-white mt-2" href="{{ url_for('views.info', id=product.id_watch) }}">Voir détails</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <a href="{{ url_for('views.info', id=product.id_watch) }}" class="h3 text-decoration-none">{{ product.nom }}</a>
+                                    <ul class="list-unstyled d-flex justify-content-between">
+                                        <li>
+                                            <span id="countdown_{{ product.id_watch }}"></span>
+                                        </li>
+                                        {% if product.current_max_offer() > 0 %}
+                                        <li class="text-danger text-right">{{ product.current_max_offer() }} €</li>
+                                        {% else %}
+                                        <li class="text-danger text-right">Pas d'offre</li>
+                                        {% endif%}
+                                    </ul> 
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Content -->
+    {% block scripts %}
+
+    <!-- JavaScript for Countdown Timer -->
+    <script>
+        function updateCountdown(endDate, elementId) {
+            var countdownInterval = setInterval(function() {
+                var now = new Date().getTime();
+                var distance = endDate - now;
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                var countdownElement = document.getElementById(elementId);
+                if (distance < 0) {
+                    clearInterval(countdownInterval);
+                    countdownElement.innerHTML = "EXPIRED";
+                } else {
+                    var countdownText = '<i class="fas fa-clock"></i> ' + days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's ';
+                    if (days < 1) {
+                        countdownElement.classList.add('text-danger'); // Adding red color
+                        countdownElement.classList.remove('text-success'); // Removing green color
+                    } else {
+                        countdownElement.classList.add('text-success'); // Adding green color
+                        countdownElement.classList.remove('text-danger'); // Removing red color
+                    }
+                    countdownElement.innerHTML = countdownText;
+                }
+            }, 1000);
+        }
+
+        {% for product in produits %}
+            var endDate_{{ product.id_watch }} = new Date('{{ product.dateEnd }}').getTime();
+            updateCountdown(endDate_{{ product.id_watch }}, 'countdown_{{ product.id_watch }}');
+        {% endfor %}
+    </script>
+    {% endblock %}
+
+{% endblock %}

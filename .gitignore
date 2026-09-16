@@ -1,0 +1,12 @@
+# Base de données locale (comptes, offres)
+instance/
+*.db
+*.sqlite3
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+.DS_Store

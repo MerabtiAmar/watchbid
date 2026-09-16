@@ -1,0 +1,81 @@
+{% extends "base.html" %} 
+{% block title %}Vendre une Montre{% endblock %} 
+{% block content %}
+
+<!-- Formulaire d'ajout d'une montre -->
+<section class="bg-light py-3 py-md-5">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-lg-6 m-auto">
+                <h1 class="h1 text-center pb-4"><strong>Ajouter une<span class="text-success"> Montre</span></strong></h1>
+            </div>
+        </div>
+    </div>
+  
+    <div class="container">
+        <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-9">
+                <div class="bg-white border rounded shadow-sm overflow-hidden">
+                    <form method="POST" enctype="multipart/form-data">
+                        <div class="row gy-4 gy-xl-5 p-4 p-xl-5">
+                            <div class="col-12">
+                                <label for="namewatch" class="form-label">Nom du modèle<span class="text-danger"> *</span></label>
+                                <input type="text" class="form-control" id="namewatch" name="namewatch" value="" required>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="brand" class="form-label">Marque <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="brand" name="brand" value="" required>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="category" class="form-label">Catégorie <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="category" name="category" value="" required>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="year" class="form-label">Année de fabrication</label>
+                                <input type="number" class="form-control" id="year" name="year" value="">
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="price" class="form-label">Prix (en €) <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="price" name="price" value="" required>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="start" class="form-label">Date de début<span class="text-danger">*</span></label>
+                                <input type="date" class="form-control" id="start" name="start" value="" required>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="end" class="form-label">Date de fin<span class="text-danger">*</span></label>
+                                <input type="date" class="form-control" id="end" name="end" value="" required>
+                            </div>
+                            <div class="col-12">
+                                <label for="description" class="form-label">Description <span class="text-danger">*</span></label>
+                                <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                            </div>
+                            <div class="col-12">
+                                <label for="details" class="form-label">Détails</label>
+                                <textarea class="form-control" id="details" name="details" rows="3"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <label for="images" class="form-label">Image 1 <span class="text-danger">*</span></label>
+                                <input type="file" class="form-control" id="image1" name="image1" accept="image/*" multiple required>
+                            </div>
+                            <div class="col-12">
+                                <label for="images" class="form-label">Image 2 <span class="text-danger">*</span></label>
+                                <input type="file" class="form-control" id="image2" name="image2" accept="image/*" multiple required>
+                            </div>
+                            <div class="col-12">
+                                <label for="images" class="form-label">Image 3 <span class="text-danger">*</span></label>
+                                <input type="file" class="form-control" id="image3" name="image3" accept="image/*" multiple required>
+                            </div>
+                            <div class="col-12">
+                                <div class="d-grid">
+                                    <button class="btn btn-success btn-lg" type="submit">Ajouter</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

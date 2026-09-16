@@ -1,0 +1,193 @@
+<!-- Start Banner Hero -->
+{% extends "base.html" %}
+{% block title %}WatchBid{% endblock %}
+{% block content %}
+
+<div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" class="active"></li>
+        <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="1"></li>
+        <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="container">
+                <div class="row p-5">
+                    <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                        <img class="img-fluid" src="./../assets/img/watch1.png" alt="" style="height: 400px; width: auto;">
+                    </div>
+                    <div class="col-lg-6 mb-0 d-flex align-items-center">
+                        <div class="text-align-left align-self-center">
+                            <h1 class="h1 text-success"><b>WatchBid</b></h1>
+                            <h3 class="h3">Enchères de Montres de Collection Rares</h3>
+                            <p>
+                                Découvrez l'exclusivité horlogère : enchérissez sur des montres de collection rares et prestigieuses. Le <b class="text-success">luxe</b> du poignet vous attend. 
+                            </p>
+                            <div class="text-center">
+                                <a href="/shop" class="btn btn-success ">Commencez maintenant</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="container">
+                <div class="row p-5">
+                    <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                        <img class="img-fluid" src="./../assets/img/watch2.png" alt="" style="height: 400px; width: auto;margin-left: 150px;">
+                    </div>
+                    <div class="col-lg-6 mb-0 d-flex align-items-center">
+                        <div class="text-align-left">
+                            <h3 class="h3">Explorez le Temps avec Élégance</h3>
+                            <p>
+                                Des montres d'exception à portée de clic. Découvrez l'exclusivité horlogère dès<strong> maintenant.</strong>
+                            </p>
+                            <div class="text-center">
+                                <a href="/shop" class="btn btn-success ">Commencez maintenant</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="container">
+                <div class="row p-5">
+                    <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                        <img class="img-fluid" src="./../assets/img/watch3.jpg" alt="" style="height: 400px; width: auto;margin-left: 150px;">
+                    </div>
+                    <div class="col-lg-6 mb-0 d-flex align-items-center">
+                        <div class="text-align-left">
+                            <h3 class="h3">Votre montre de rêve vous attend</h3>
+                            <p>
+                                Plongez dans l'enchère dès maintenant et faites de votre rêve une réalité horlogère!
+                            </p>
+                            <div class="text-center">
+                                <a href="/shop" class="btn btn-success ">Commencez maintenant</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="carousel-control-prev text-decoration-none w-auto ps-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="prev">
+        <i class="fas fa-chevron-left"></i>
+    </a>
+    <a class="carousel-control-next text-decoration-none w-auto pe-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="next">
+        <i class="fas fa-chevron-right"></i>
+    </a>
+</div>
+<!-- End Banner-->
+
+<section class="bg-light">
+    <div class="container">
+        <div class="row text-center py-3">
+            <div class="col-lg-6 m-auto">
+                <h1 class="h1"><strong>Montres En <span class="text-success">Vedette</span></strong></h1>
+            </div>                
+        </div>
+        <div class="row">
+            {% for watch, max_offer in produits %}
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card h-100">
+                        <a href="/shop-single?id={{ watch.id_watch }}">
+                            <img src="../assets/img/{{ watch.img1 }}" class="card-img-top img-fluid" alt="..." style="height: 300px; object-fit: cover;">
+                        </a>
+                        <div class="card-body">
+                            <ul class="list-unstyled d-flex justify-content-between">
+                                <li>
+                                    <span id="countdown_{{ watch.id_watch }}" class="text-danger"><i class="fas fa-clock"></i></span>
+                                </li>
+                                <li class="text-danger text-right">{{ max_offer }} €</li>
+                            </ul>
+                            <a href="#" class="h2 text-decoration-none text-dark">{{ watch.nom }}</a>
+                            <p class="card-text">
+                                {{ watch.desc }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>        
+    </div>
+</section>
+
+<section class="bg-light">
+    <div class="container">
+        <div class="row text-center py-5">
+            <div class="col-lg-6 m-auto">
+                <h1 class="h1"><strong>Enchères Presque<span class="text-success"> Terminées</span></strong></h1>
+            </div>                
+        </div>
+        <div class="row">
+            <div class="row">
+                {% for auction, max_offer in auctions %}
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card h-100">
+                        <a href="/shop-single?id={{ auction.id_watch }}">
+                            <img src="../assets/img/{{ auction.img1 }}" class="card-img-top img-fluid" alt="..." style="height: 300px; object-fit: cover;">
+                        </a>
+                        <div class="card-body">
+                            <ul class="list-unstyled d-flex justify-content-between">
+                                <li>
+                                    <span id="countdown_auction_{{ auction.id_watch }}" class="text-danger"><i class="fas fa-clock"></i></span>
+                                </li>
+                                <li class="text-danger text-right">{{ max_offer }} €</li>
+                            </ul>
+                            <a href="#" class="h2 text-decoration-none text-dark">{{ auction.nom }}</a>
+                            <p class="card-text">
+                                {{ auction.desc }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>            
+        </div>
+    </div>
+</section>
+
+    {% block scripts %}
+        <script>
+            function updateCountdown(endDate, elementId) {
+                var countdownInterval = setInterval(function() {
+                    var now = new Date().getTime();
+                    var distance = endDate - now;
+                    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    var countdownElement = document.getElementById(elementId);
+                    if (distance < 0) {
+                        clearInterval(countdownInterval);
+                        countdownElement.innerHTML = "EXPIRED";
+                    } else {
+                        var countdownText = '<i class="fas fa-clock"></i> ' + days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's ';
+                        if (days < 1) {
+                            countdownElement.classList.add('text-danger'); // Adding red color
+                            countdownElement.classList.remove('text-success'); // Removing green color
+                        } else {
+                            countdownElement.classList.add('text-success'); // Adding green color
+                            countdownElement.classList.remove('text-danger'); // Removing red color
+                        }
+                        countdownElement.innerHTML = countdownText;
+                    }
+                }, 1000);
+            }
+            
+            {% for watch, max_offer in produits %}
+                var endDate_{{ watch.id_watch }} = new Date('{{ watch.dateEnd }}').getTime();
+                updateCountdown(endDate_{{ watch.id_watch }}, 'countdown_{{ watch.id_watch }}');
+            {% endfor %}
+            
+            {% for auction, max_offer in auctions %}
+                var endDate_auction_{{ auction.id_watch }} = new Date('{{ auction.dateEnd }}').getTime();
+                updateCountdown(endDate_auction_{{ auction.id_watch }}, 'countdown_auction_{{ auction.id_watch }}');
+            {% endfor %}
+        </script>
+    {% endblock %}
+
+
+{% endblock %}

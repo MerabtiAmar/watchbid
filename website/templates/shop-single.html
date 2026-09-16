@@ -1,0 +1,147 @@
+<!-- Start Banner Hero -->
+{% extends "base.html" %}
+{% block title %}Details Produit{% endblock %}
+{% block content %}
+
+    <!-- Open Content -->
+    <section class="bg-light">
+        <div class="container pb-5">
+            <div class="row">
+                <div class="col-lg-5 mt-5">
+                    <div class="card mb-3">
+                        <img class="card-img-top img-fluid" src="../assets/img/{{ product.img1 }}" alt="Card image cap" id="product-detail" style="height: 400px; object-fit: cover;">
+                    </div>
+                    <div class="row">
+                        <!--Start Carousel Wrapper-->
+                        <div id="multi-item-example" class="col-15 carousel slide carousel-multi-item" data-bs-ride="carousel">
+                            <!--Start Slides-->
+                            <div class="carousel-inner product-links-wap" role="listbox">
+
+                                <!--First slide-->
+                                <div class="carousel-item active">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <a href="#">
+                                                <img class="card-img-top img-fluid" src="../assets/img/{{ product.img1 }}" alt="Card image cap" id="product-detail" style="height: 100px; width=auto; object-fit: cover;">
+                                            </a>
+                                        </div>
+                                        <div class="col-4">
+                                            <a href="#">
+                                                <img class="card-img-top img-fluid" src="../assets/img/{{ product.img2 }}" alt="Card image cap" id="product-detail" style="height: 100px; width=auto; object-fit: cover;">
+                                            </a>
+                                        </div>
+                                        <div class="col-4">
+                                            <a href="#">
+                                                <img class="card-img-top img-fluid" src="../assets/img/{{ product.img3 }}" alt="Card image cap" id="product-detail" style="height: 100px; width=auto; object-fit: cover;">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/.First slide-->
+                            </div>
+                            <!--End Slides-->
+                        </div>
+                        <!--End Carousel Wrapper-->
+                    </div>
+                </div>
+                <!-- col end -->
+                <div class="col-lg-7 mt-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h1 class="h2">{{ product.nom }}</h1>
+                            <h4>Propriétaire: <strong class="text-muted">{{ proprietaire.full_name }}</strong></h4>
+                            <p class="h3">
+                                <li class="list-inline-item">
+                                    <h6>Offre actuelle:</h6>
+                                </li>
+                                <strong class="text-danger">{{ max_bid }} €</strong>
+                            </p>
+                            <p class="py-2">
+                                <span id="countdown_timer" class="text-danger"><i class="fas fa-clock"></i></span>
+                                <span>|  {{ num_bids }}  offres</span>                         
+                            </p>
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <h6>Marque:</h6>
+                                </li>
+                                <li class="list-inline-item">
+                                    <p class="text-muted"><strong>{{ product.marque }}</strong></p>
+                                </li>
+                                <li class="list-inline-item">
+                                    <h6>Catégorie:</h6>
+                                </li>
+                                <li class="list-inline-item">
+                                    <p class="text-muted"><strong>{{ product.categorie }}</strong></p>
+                                </li>
+                            </ul>
+
+                            <h6>Description:</h6>
+                            <p>{{ product.desc }}</p>
+
+                            <h6>Détails:</h6>
+                            <ul class="list-unstyled pb-3">
+                                {% for detail in details_list %}
+                                    <li>{{ detail }}</li>
+                                {% endfor %}
+                            </ul>
+
+
+                            <form action="" method="POST">
+                                <input type="hidden" name="product-title" value="Activewear">
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="number" class="form-control" name="offer-price" placeholder="Saisissez votre offre" required {% if product.dateEnd < date %}disabled{% endif %}>
+                                    </div>
+                                    <div class="col d-grid">
+                                        <button type="submit" class="btn btn-success" name="submit" value="buy" {% if product.dateEnd < date %}disabled{% endif %}>Placer l'offre</button>
+                                    </div>
+                                </div>
+                            </form>
+                            
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Close Content -->
+    {% block scripts %}
+    <script>
+        function updateCountdown(endDate, elementId) {
+            var countdownInterval = setInterval(function() {
+                var now = new Date().getTime();
+                var distance = endDate - now;
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                var countdownElement = document.getElementById(elementId);
+                if (distance < 0) {
+                    clearInterval(countdownInterval);
+                    countdownElement.innerHTML = "EXPIRED";
+                } else {
+                    var countdownText = '<i class="fas fa-clock"></i> ' + days + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's ';
+                    if (days < 1) {
+                        countdownElement.classList.add('text-danger'); // Adding red color
+                        countdownElement.classList.remove('text-success'); // Removing green color
+                    } else {
+                        countdownElement.classList.add('text-success'); // Adding green color
+                        countdownElement.classList.remove('text-danger'); // Removing red color
+                    }
+                    countdownElement.innerHTML = countdownText;
+                }
+            }, 1000);
+        }
+    
+        // Get the end date of the auction from the server-side
+        var endDate = new Date('{{ product.dateEnd }}').getTime();
+    
+        // Call the updateCountdown function with the end date and the element id
+        updateCountdown(endDate, 'countdown_timer');
+    </script>
+    {% endblock %}
+
+
+
+{% endblock %}
