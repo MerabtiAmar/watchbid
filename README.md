@@ -43,4 +43,4 @@ Code distribué sous [licence MIT](LICENSE). Le template d'interface *Zay Shop* 
 
 ## Auteurs
 
-**Amar Merabti**, Lynda Farah Hammouche et Abdelkader Souayah.
+**Amar Merabti**
